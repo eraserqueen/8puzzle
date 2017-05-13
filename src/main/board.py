@@ -8,6 +8,19 @@ class Board:
     @property
     def empty_slot(self): return self.tiles.index(0)
 
+    @property
+    def valid_moves(self):
+        moves = ["up", "down", "left", "right"]
+        if self.empty_slot < 3:
+            moves.remove("up")
+        if self.empty_slot > 5:
+            moves.remove("down")
+        if self.empty_slot%3 == 0:
+            moves.remove("left")
+        if self.empty_slot%3 == 2:
+            moves.remove("right")
+        return moves
+
     def swap(self, swapped_slot):
         self.tiles[self.empty_slot] = self.tiles[swapped_slot]
         self.tiles[swapped_slot] = 0

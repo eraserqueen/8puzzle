@@ -20,6 +20,20 @@ class TestBoardClass(unittest.TestCase):
         board = Board([1, 0, 2, 3, 4, 5, 6, 7, 8])
         self.assertEquals(1, board.empty_slot)
 
+    def test_valid_moves(self):
+        self.assertEquals(["down", "right"],
+                          Board([0, 1, 2,
+                                 3, 4, 5,
+                                 6, 7, 8]).valid_moves)
+        self.assertEquals(["up", "down", "left", "right"],
+                          Board([1, 4, 2,
+                                 3, 0, 5,
+                                 6, 7, 8]).valid_moves)
+        self.assertEquals(["up", "left"],
+                          Board([2, 1, 8,
+                                 3, 4, 5,
+                                 6, 7, 0]).valid_moves)
+
     # TODO add more test cases
     def test_down(self):
         board = Board([0, 1, 2,
