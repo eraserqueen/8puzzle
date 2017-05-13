@@ -1,7 +1,5 @@
 import unittest
 
-from src.main.bfsSolver import BfsSolver
-from src.main.board import Board
 from src.main.driver_3 import Driver
 from src.main.result import Result
 
