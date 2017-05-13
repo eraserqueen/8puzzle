@@ -2,6 +2,7 @@ import unittest
 
 from src.main.board import Board
 from src.main.driver_3 import Driver
+from src.main.result import Result
 
 
 class TestDriver(unittest.TestCase):
@@ -11,10 +12,10 @@ class TestDriver(unittest.TestCase):
         self.assertEquals("bfs", driver.strategy)
         self.assertEquals(expected_board.state, driver.board.state)
 
-    def test_bfs(self):
+    def test_run(self):
         driver = Driver("bfs", "0,1,2,3,4,5,6,7,8")
         result = driver.run()
-        expected_result = "Solved puzzle with BFS"
+        expected_result = Result().stringified
         self.assertEquals(expected_result, result)
 
 

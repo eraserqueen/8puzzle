@@ -4,6 +4,4 @@ class Board:
         print("initialised board with:" + str(self.state))
 
     def is_solved(self):
-        if self.state == [0, 1, 2, 3, 4, 5, 6, 7, 8]:
-            return True
-        return False
+        return self.state == [0, 1, 2, 3, 4, 5, 6, 7, 8]
