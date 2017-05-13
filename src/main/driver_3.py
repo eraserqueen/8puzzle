@@ -1,5 +1,5 @@
-from board import Board
-from bfsSolver import BfsSolver
+from src.main.board import Board
+from src.main.bfsSolver import BfsSolver
 
 
 class Driver:

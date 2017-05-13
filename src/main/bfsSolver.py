@@ -1,4 +1,4 @@
-from result import Result
+from src.main.result import Result
 
 class BfsSolver:
     strategy = 'BFS'
