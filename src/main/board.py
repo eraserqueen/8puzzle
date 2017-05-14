@@ -5,6 +5,17 @@ class Board:
     def __init__(self, tiles):
         self.tiles = tiles
 
+    def __str__(self):
+        return str(self.tiles)
+
+    def __eq__(self, other):
+        if self is None:
+            return other is None
+        elif other is None:
+            return self is None
+        else:
+            return self.tiles == other.tiles
+
     @property
     def is_solved(self):
         return self.tiles == [0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -27,25 +38,32 @@ class Board:
 
     @property
     def next_states(self):
-        states = []
-        for m in self.valid_moves:
-            next_state = copy.deepcopy(self)
-            getattr(next_state, m)()
-            states.append(next_state)
+        states = [
+            copy.copy(self).up(),
+            copy.copy(self).down(),
+            copy.copy(self).left(),
+            copy.copy(self).right(),
+        ]
         return states
 
     def swap(self, swapped_slot):
-        self.tiles[self.empty_slot] = self.tiles[swapped_slot]
-        self.tiles[swapped_slot] = 0
-
-    def down(self):
-        self.swap(self.empty_slot + 3)
+        if not (0 <= swapped_slot < 9):
+            return None
+        else:
+            tiles = copy.copy(self.tiles)
+            tiles[tiles.index(0)] = tiles[swapped_slot]
+            tiles[swapped_slot] = 0
+            self.tiles = tiles
+            return self
 
     def up(self):
-        self.swap(self.empty_slot - 3)
+        return self.swap(self.empty_slot - 3)
+
+    def down(self):
+        return self.swap(self.empty_slot + 3)
 
     def left(self):
-        self.swap(self.empty_slot - 1)
+        return self.swap(self.empty_slot - 1)
 
     def right(self):
-        self.swap(self.empty_slot + 1)
+        return self.swap(self.empty_slot + 1)

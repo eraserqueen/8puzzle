@@ -34,7 +34,7 @@ class TestBoardClass(unittest.TestCase):
                                  3, 4, 5,
                                  6, 7, 0]).valid_moves)
 
-    def test_next_states(self):
+    def test_next_states_when_empty_slot_is_in_the_center(self):
         states = Board([1, 2, 3, 4, 0, 5, 6, 7, 8]).next_states
         expected_states = [
             Board([1, 0, 3, 4, 2, 5, 6, 7, 8]),
@@ -42,51 +42,54 @@ class TestBoardClass(unittest.TestCase):
             Board([1, 2, 3, 0, 4, 5, 6, 7, 8]),
             Board([1, 2, 3, 4, 5, 0, 6, 7, 8]),
         ]
-        self.assertEquals(expected_states[0].tiles, states[0].tiles)
-        self.assertEquals(expected_states[1].tiles, states[1].tiles)
-        self.assertEquals(expected_states[2].tiles, states[2].tiles)
-        self.assertEquals(expected_states[3].tiles, states[3].tiles)
+        self.assertEquals(expected_states, states)
+
+    def test_next_states_when_empty_slot_is_in_a_corner(self):
+        states = Board([0, 1, 2, 3, 4, 5, 6, 7, 8]).next_states
+        expected_states = [
+            None,
+            Board([3, 1, 2, 0, 4, 5, 6, 7, 8]),
+            None,
+            Board([1, 0, 2, 3, 4, 5, 6, 7, 8]),
+        ]
+        self.assertEquals(expected_states, states)
 
     # TODO add more test cases
     def test_down(self):
         board = Board([0, 1, 2,
                        3, 4, 5,
-                       6, 7, 8])
-        board.down()
+                       6, 7, 8]).down()
         expected = Board([3, 1, 2,
                           0, 4, 5,
                           6, 7, 8])
-        self.assertEquals(expected.tiles, board.tiles)
+        self.assertEquals(expected, board)
 
     def test_up(self):
         board = Board([3, 1, 2,
                        0, 4, 5,
-                       6, 7, 8])
-        board.up()
+                       6, 7, 8]).up()
         expected = Board([0, 1, 2,
                           3, 4, 5,
                           6, 7, 8])
-        self.assertEquals(expected.tiles, board.tiles)
+        self.assertEquals(expected, board)
 
     def test_right(self):
         board = Board([0, 1, 2,
                        3, 4, 5,
-                       6, 7, 8])
-        board.right()
+                       6, 7, 8]).right()
         expected = Board([1, 0, 2,
                           3, 4, 5,
                           6, 7, 8])
-        self.assertEquals(expected.tiles, board.tiles)
+        self.assertEquals(expected, board)
 
     def test_left(self):
         board = Board([1, 0, 2,
                        3, 4, 5,
-                       6, 7, 8])
-        board.left()
+                       6, 7, 8]).left()
         expected = Board([0, 1, 2,
                           3, 4, 5,
                           6, 7, 8])
-        self.assertEquals(expected.tiles, board.tiles)
+        self.assertEquals(expected, board)
 
 
 if __name__ == '__main__':
