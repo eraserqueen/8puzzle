@@ -34,6 +34,19 @@ class TestBoardClass(unittest.TestCase):
                                  3, 4, 5,
                                  6, 7, 0]).valid_moves)
 
+    def test_next_states(self):
+        states = Board([1, 2, 3, 4, 0, 5, 6, 7, 8]).next_states
+        expected_states = [
+            Board([1, 0, 3, 4, 2, 5, 6, 7, 8]),
+            Board([1, 2, 3, 4, 7, 5, 6, 0, 8]),
+            Board([1, 2, 3, 0, 4, 5, 6, 7, 8]),
+            Board([1, 2, 3, 4, 5, 0, 6, 7, 8]),
+        ]
+        self.assertEquals(expected_states[0].tiles, states[0].tiles)
+        self.assertEquals(expected_states[1].tiles, states[1].tiles)
+        self.assertEquals(expected_states[2].tiles, states[2].tiles)
+        self.assertEquals(expected_states[3].tiles, states[3].tiles)
+
     # TODO add more test cases
     def test_down(self):
         board = Board([0, 1, 2,

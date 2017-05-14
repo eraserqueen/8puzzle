@@ -4,7 +4,6 @@ import copy
 class Board:
     def __init__(self, tiles):
         self.tiles = tiles
-        print(self.tiles)
 
     @property
     def is_solved(self):
@@ -25,6 +24,15 @@ class Board:
         if self.empty_slot%3 == 2:
             moves.remove("right")
         return moves
+
+    @property
+    def next_states(self):
+        states = []
+        for m in self.valid_moves:
+            next_state = copy.deepcopy(self)
+            getattr(next_state, m)()
+            states.append(next_state)
+        return states
 
     def swap(self, swapped_slot):
         self.tiles[self.empty_slot] = self.tiles[swapped_slot]

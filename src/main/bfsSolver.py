@@ -5,14 +5,6 @@ from src.main.board import Board
 from src.main.result import Result
 
 
-def next_states(board):
-    states = []
-    for m in board.valid_moves:
-        next_state = copy.deepcopy(board)
-        getattr(next_state, m)()
-        states.append(next_state)
-    return states
-
 class BfsSolver:
     strategy = 'BFS'
 
@@ -35,4 +27,4 @@ class BfsSolver:
             self.visited.index(current)
         except ValueError:
             self.visited.append(current)
-            self.fringe.extend(next_states(current))
+            self.fringe.extend(current.next_states)
