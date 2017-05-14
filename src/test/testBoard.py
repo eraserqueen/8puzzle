@@ -10,7 +10,7 @@ class TestBoardClass(unittest.TestCase):
 
     def test_is_solved(self):
         board = Board([0, 1, 2, 3, 4, 5, 6, 7, 8])
-        self.assertTrue(board.is_solved())
+        self.assertTrue(board.is_solved)
 
     def test_empty_slot(self):
         board = Board([0, 1, 2, 3, 4, 5, 6, 7, 8])

@@ -1,7 +1,12 @@
+import copy
+
+
 class Board:
     def __init__(self, tiles):
         self.tiles = tiles
+        print(self.tiles)
 
+    @property
     def is_solved(self):
         return self.tiles == [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
@@ -36,4 +41,3 @@ class Board:
 
     def right(self):
         self.swap(self.empty_slot + 1)
-

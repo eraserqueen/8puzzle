@@ -9,7 +9,7 @@ class TestDriver(unittest.TestCase):
         driver = Driver("bfs", "3,2,4,1,5,7,6,0,8")
         tiles = [3, 2, 4, 1, 5, 7, 6, 0, 8]
         self.assertEquals("BFS", driver.solver.strategy)
-        self.assertEquals(tiles, driver.solver.state.tiles)
+        self.assertEquals(tiles, driver.solver.fringe[0].tiles)
 
     def test_run(self):
         driver = Driver("bfs", "0,1,2,3,4,5,6,7,8")
