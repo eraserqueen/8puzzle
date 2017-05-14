@@ -37,20 +37,20 @@ class TestBoardClass(unittest.TestCase):
     def test_next_states_when_empty_slot_is_in_the_center(self):
         states = Board([1, 2, 3, 4, 0, 5, 6, 7, 8]).next_states
         expected_states = [
-            Board([1, 0, 3, 4, 2, 5, 6, 7, 8]),
-            Board([1, 2, 3, 4, 7, 5, 6, 0, 8]),
-            Board([1, 2, 3, 0, 4, 5, 6, 7, 8]),
-            Board([1, 2, 3, 4, 5, 0, 6, 7, 8]),
+            ("up", Board([1, 0, 3, 4, 2, 5, 6, 7, 8])),
+            ("down", Board([1, 2, 3, 4, 7, 5, 6, 0, 8])),
+            ("left", Board([1, 2, 3, 0, 4, 5, 6, 7, 8])),
+            ("right", Board([1, 2, 3, 4, 5, 0, 6, 7, 8])),
         ]
         self.assertEquals(expected_states, states)
 
     def test_next_states_when_empty_slot_is_in_a_corner(self):
         states = Board([0, 1, 2, 3, 4, 5, 6, 7, 8]).next_states
         expected_states = [
-            None,
-            Board([3, 1, 2, 0, 4, 5, 6, 7, 8]),
-            None,
-            Board([1, 0, 2, 3, 4, 5, 6, 7, 8]),
+            ("up", None),
+            ("down", Board([3, 1, 2, 0, 4, 5, 6, 7, 8])),
+            ("left", None),
+            ("right", Board([1, 0, 2, 3, 4, 5, 6, 7, 8])),
         ]
         self.assertEquals(expected_states, states)
 

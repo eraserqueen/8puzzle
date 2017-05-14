@@ -21,7 +21,8 @@ class Board:
         return self.tiles == [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
     @property
-    def empty_slot(self): return self.tiles.index(0)
+    def empty_slot(self):
+        return self.tiles.index(0)
 
     @property
     def valid_moves(self):
@@ -30,19 +31,19 @@ class Board:
             moves.remove("up")
         if self.empty_slot > 5:
             moves.remove("down")
-        if self.empty_slot%3 == 0:
+        if self.empty_slot % 3 == 0:
             moves.remove("left")
-        if self.empty_slot%3 == 2:
+        if self.empty_slot % 3 == 2:
             moves.remove("right")
         return moves
 
     @property
     def next_states(self):
         states = [
-            copy.copy(self).up(),
-            copy.copy(self).down(),
-            copy.copy(self).left(),
-            copy.copy(self).right(),
+            ("up", copy.copy(self).up()),
+            ("down", copy.copy(self).down()),
+            ("left", copy.copy(self).left()),
+            ("right", copy.copy(self).right()),
         ]
         return states
 
