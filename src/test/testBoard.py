@@ -4,16 +4,21 @@ from src.main.board import Board
 
 
 class TestBoardClass(unittest.TestCase):
-    def test_setsState(self):
+    def test_init_defaults_to_solved_board(self):
+        board = Board()
+        self.assertEquals(board.tiles, [0, 1, 2, 3, 4, 5, 6, 7, 8])
+        self.assertTrue(board.is_solved)
+
+    def test_init_sets_tiles(self):
         board = Board([3, 4, 1, 5, 2, 6, 8, 0, 7])
         self.assertEquals(board.tiles, [3, 4, 1, 5, 2, 6, 8, 0, 7])
 
     def test_is_solved(self):
-        board = Board([0, 1, 2, 3, 4, 5, 6, 7, 8])
+        board = Board()
         self.assertTrue(board.is_solved)
 
     def test_empty_slot(self):
-        board = Board([0, 1, 2, 3, 4, 5, 6, 7, 8])
+        board = Board()
         self.assertEquals(0, board.empty_slot)
 
     def test_empty_slot(self):
@@ -45,11 +50,9 @@ class TestBoardClass(unittest.TestCase):
         self.assertEquals(expected_states, states)
 
     def test_next_states_when_empty_slot_is_in_a_corner(self):
-        states = Board([0, 1, 2, 3, 4, 5, 6, 7, 8]).next_states
+        states = Board().next_states
         expected_states = [
-            ("up", None),
             ("down", Board([3, 1, 2, 0, 4, 5, 6, 7, 8])),
-            ("left", None),
             ("right", Board([1, 0, 2, 3, 4, 5, 6, 7, 8])),
         ]
         self.assertEquals(expected_states, states)
@@ -90,7 +93,6 @@ class TestBoardClass(unittest.TestCase):
                           3, 4, 5,
                           6, 7, 8])
         self.assertEquals(expected, board)
-
 
 if __name__ == '__main__':
     unittest.main()

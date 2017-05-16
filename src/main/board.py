@@ -2,8 +2,13 @@ import copy
 
 
 class Board:
-    def __init__(self, tiles):
-        self.tiles = tiles
+    solved_tiles = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
+    def __init__(self, tiles=None):
+        if tiles is None:
+            self.tiles = self.solved_tiles
+        else:
+            self.tiles = tiles
 
     def __str__(self):
         return str(self.tiles)
@@ -18,7 +23,7 @@ class Board:
 
     @property
     def is_solved(self):
-        return self.tiles == [0, 1, 2, 3, 4, 5, 6, 7, 8]
+        return self.tiles == self.solved_tiles
 
     @property
     def empty_slot(self):
@@ -39,13 +44,7 @@ class Board:
 
     @property
     def next_states(self):
-        states = [
-            ("up", copy.copy(self).up()),
-            ("down", copy.copy(self).down()),
-            ("left", copy.copy(self).left()),
-            ("right", copy.copy(self).right()),
-        ]
-        return states
+        return [(move, getattr(copy.copy(self), move)()) for move in self.valid_moves]
 
     def swap(self, swapped_slot):
         if not (0 <= swapped_slot < 9):

@@ -8,7 +8,7 @@ from src.main.result import Result
 
 
 class TestBfsSolver(unittest.TestCase):
-    solved_board = Board([0, 1, 2, 3, 4, 5, 6, 7, 8])
+    solved_board = Board()
     board_with_middle_empty_slot = Board([1, 2, 3, 4, 0, 5, 6, 7, 8])
 
     def test_init(self):
@@ -48,6 +48,13 @@ class TestBfsSolver(unittest.TestCase):
         self.assertEquals(0, len(solver.fringe))
         self.assertEquals([Node(starting_board)], solver.visited)
         self.assertEquals(["up"], solver.result.path_to_goal)
+
+    def test_run_when_board_is_solved_in_5_moves(self):
+        board = Board().down().down().right().right().up();
+        solver = BfsSolver(board)
+        solver.run()
+        solution = ['down', 'left', 'left', 'up', 'up']
+        self.assertEquals(solution, solver.result.path_to_goal)
 
     if __name__ == '__main__':
         unittest.main()

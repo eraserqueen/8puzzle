@@ -1,11 +1,7 @@
 from collections import deque
-
 from src.main.board import Board
 from src.main.node import Node
 from src.main.result import Result
-
-
-
 
 class BfsSolver:
     strategy = 'BFS'

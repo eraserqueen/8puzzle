@@ -5,7 +5,7 @@ from src.main.node import Node
 
 
 class TestNode(unittest.TestCase):
-    starting_board = Board([0, 1, 2, 3, 4, 5, 6, 7, 8])
+    starting_board = Board()
 
     def test_init(self):
         node = Node(self.starting_board, ["blah"])
