@@ -20,4 +20,7 @@ class Driver:
 if __name__ == '__main__':
     import sys
     result = Driver(sys.argv[1], sys.argv[2]).run()
+    f = open('output.txt', 'w')
+    f.write(str(result))
+    f.close()
     print(str(result))
