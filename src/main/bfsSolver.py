@@ -20,9 +20,14 @@ class BfsSolver:
     def check_next_node(self):
         current_node = self.fringe.popleft()
 
+        if self.result.max_search_depth < current_node.depth:
+            self.result.max_search_depth = current_node.depth
+
         if current_node.board.is_solved:
             self.fringe.clear()
             self.result.path_to_goal = current_node.path
+            self.result.nodes_expanded = len(self.visited)
+            self.result.search_depth = current_node.depth
             return
 
         try:

@@ -3,7 +3,6 @@ import unittest
 from src.main.board import Board
 from src.main.driver_3 import Driver
 from src.main.node import Node
-from src.main.result import Result
 
 
 class TestDriver(unittest.TestCase):
@@ -16,8 +15,12 @@ class TestDriver(unittest.TestCase):
     def test_run(self):
         driver = Driver("bfs", "0,1,2,3,4,5,6,7,8")
         result = driver.run()
-        expected_result = str(Result())
-        self.assertEquals(expected_result, result)
+        self.assertEquals([], result.path_to_goal)
+        self.assertEquals(0, result.nodes_expanded)
+        self.assertEquals(0, result.search_depth)
+        self.assertEquals(0, result.max_search_depth)
+        self.assertTrue(result.running_time > 0)
+        self.assertTrue(result.max_ram_usage > 0)
 
 
 if __name__ == '__main__':

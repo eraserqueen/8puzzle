@@ -1,6 +1,6 @@
 from src.main.board import Board
 from src.main.bfsSolver import BfsSolver
-
+import resource
 
 class Driver:
     def __init__(self, strategy, starting_state):
@@ -10,10 +10,14 @@ class Driver:
             self.solver = BfsSolver(starting_board)
 
     def run(self):
-        result = self.solver.run()
-        return str(result)
+        self.solver.run()
+        usage = resource.getrusage(0)
+        self.solver.result.max_ram_usage = usage[2] / 8 / 1024 / 1024
+        self.solver.result.running_time = usage[0]
+        return self.solver.result
 
 
 if __name__ == '__main__':
     import sys
-    Driver(sys.argv[1], sys.argv[2]).run()
+    result = Driver(sys.argv[1], sys.argv[2]).run()
+    print(str(result))

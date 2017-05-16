@@ -48,6 +48,9 @@ class TestBfsSolver(unittest.TestCase):
         self.assertEquals(0, len(solver.fringe))
         self.assertEquals([Node(starting_board)], solver.visited)
         self.assertEquals(["up"], solver.result.path_to_goal)
+        self.assertEquals(1, solver.result.nodes_expanded)
+        self.assertEquals(1, solver.result.search_depth)
+        self.assertEquals(1, solver.result.max_search_depth)
 
     def test_run_when_board_is_solved_in_5_moves(self):
         board = Board().down().down().right().right().up();
@@ -55,6 +58,17 @@ class TestBfsSolver(unittest.TestCase):
         solver.run()
         solution = ['down', 'left', 'left', 'up', 'up']
         self.assertEquals(solution, solver.result.path_to_goal)
+        self.assertEquals(70, solver.result.nodes_expanded)
+        self.assertEquals(5, solver.result.search_depth)
+        self.assertEquals(5, solver.result.max_search_depth)
+
+    def test_sets_max_depth(self):
+        starting_board = self.board_with_middle_empty_slot
+        solver = BfsSolver(starting_board)
+        self.assertEquals(0, solver.result.max_search_depth)
+        solver.check_next_node()
+        solver.check_next_node()
+        self.assertEquals(1, solver.result.max_search_depth)
 
     if __name__ == '__main__':
         unittest.main()

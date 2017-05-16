@@ -25,5 +25,12 @@ class TestNode(unittest.TestCase):
         self.assertEquals("2UL", str(Node(self.starting_board, ["up", "left"])))
         self.assertEquals("3ULL", str(Node(self.starting_board, ["up", "left", "left"])))
 
+    def test_depth(self):
+        self.assertEquals(0, Node(self.starting_board).depth)
+        self.assertEquals(1, Node(self.starting_board, ["up"]).depth)
+        self.assertEquals(2, Node(self.starting_board, ["up", "left"]).depth)
+        self.assertEquals(3, Node(self.starting_board, ["up", "left", "left"]).depth)
+
+
 if __name__ == '__main__':
     unittest.main()

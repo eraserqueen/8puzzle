@@ -14,12 +14,8 @@ class Board:
         return str(self.tiles)
 
     def __eq__(self, other):
-        if self is None:
-            return other is None
-        elif other is None:
-            return self is None
-        else:
-            return self.tiles == other.tiles
+        assert isinstance(other, Board)
+        return self.tiles == other.tiles
 
     @property
     def is_solved(self):
