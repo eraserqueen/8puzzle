@@ -11,9 +11,7 @@ class Driver:
 
     def run(self):
         result = self.solver.run()
-        output = result.stringified
-        print(output)
-        return output
+        return str(result)
 
 
 if __name__ == '__main__':

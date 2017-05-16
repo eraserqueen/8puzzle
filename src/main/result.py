@@ -8,8 +8,10 @@ class Result:
         self.running_time = 0
         self.max_ram_usage = 0
 
-    @property
-    def stringified(self):
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
+
+    def __str__(self):
         return f"""path_to_goal: {self.path_to_goal}
 cost_of_path: {self.cost_of_path}
 nodes_expanded: {self.nodes_expanded}

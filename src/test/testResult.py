@@ -13,7 +13,7 @@ class TestResult(unittest.TestCase):
         self.assertEquals(0, result.running_time)
         self.assertEquals(0, result.max_ram_usage)
 
-    def test_stringify(self):
+    def test_str(self):
         result = Result()
         expected = """path_to_goal: []
 cost_of_path: 0
@@ -22,7 +22,7 @@ search_depth: 0
 max_search_depth: 0
 running_time: 0
 max_ram_usage: 0"""
-        self.assertEquals(expected, result.stringified)
+        self.assertEquals(expected, str(result))
 
 if __name__ == '__main__':
     unittest.main()
