@@ -13,6 +13,13 @@ class TestBoardClass(unittest.TestCase):
         board = Board([3, 4, 1, 5, 2, 6, 8, 0, 7])
         self.assertEquals(board.tiles, [3, 4, 1, 5, 2, 6, 8, 0, 7])
 
+    def test_str(self):
+        self.assertEquals("[0, 1, 2, 3, 4, 5, 6, 7, 8]", str(Board()))
+
+    def test_equal(self):
+        self.assertEquals(Board(), Board())
+        self.assertNotEquals(Board(), Board([1,2,3,4,5,6,7,8,0]))
+
     def test_is_solved(self):
         board = Board()
         self.assertTrue(board.is_solved)

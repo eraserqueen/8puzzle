@@ -2,6 +2,7 @@ from src.main.board import Board
 from src.main.bfsSolver import BfsSolver
 import resource
 
+
 class Driver:
     def __init__(self, strategy, starting_state):
         tiles = [int(i) for i in starting_state.replace(',', '')]
@@ -19,6 +20,7 @@ class Driver:
 
 if __name__ == '__main__':
     import sys
+
     result = Driver(sys.argv[1], sys.argv[2]).run()
     f = open('output.txt', 'w')
     f.write(str(result))

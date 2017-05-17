@@ -1,5 +1,6 @@
 import copy
 
+
 class Board:
     solved_tiles = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 

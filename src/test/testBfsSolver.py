@@ -58,7 +58,7 @@ class TestBfsSolver(unittest.TestCase):
         solver.run()
         solution = ['down', 'left', 'left', 'up', 'up']
         self.assertEquals(solution, solver.result.path_to_goal)
-        self.assertEquals(70, solver.result.nodes_expanded)
+        self.assertEquals(47, solver.result.nodes_expanded)
         self.assertEquals(5, solver.result.search_depth)
         self.assertEquals(5, solver.result.max_search_depth)
 
