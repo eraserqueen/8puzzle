@@ -1,6 +1,5 @@
 import copy
 
-
 class Board:
     solved_tiles = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
@@ -14,7 +13,8 @@ class Board:
         return str(self.tiles)
 
     def __eq__(self, other):
-        assert isinstance(other, Board)
+        if not isinstance(other, Board):
+            return False
         return self.tiles == other.tiles
 
     @property

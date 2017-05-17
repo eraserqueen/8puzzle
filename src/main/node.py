@@ -1,9 +1,5 @@
-from src.main.board import Board
-
-
 class Node:
     def __init__(self, board, path=None):
-        assert isinstance(board, Board)
         self.board = board
         if path is None:
             self.path = []
@@ -11,7 +7,9 @@ class Node:
             self.path = path
 
     def __eq__(self, other):
-        return self.board == other.board and self.depth == other.depth
+        if not isinstance(other, Node):
+            return False
+        return self.board == other.board
 
     def __str__(self):
         if self.depth == 0:

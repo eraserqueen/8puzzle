@@ -1,13 +1,12 @@
 from collections import deque
-from src.main.board import Board
-from src.main.node import Node
-from src.main.result import Result
+from node import Node
+from result import Result
+
 
 class BfsSolver:
     strategy = 'BFS'
 
     def __init__(self, starting_board):
-        assert isinstance(starting_board, Board)
         self.fringe = deque([Node(starting_board)])
         self.visited = []
         self.result = Result()
