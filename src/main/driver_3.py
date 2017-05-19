@@ -1,5 +1,5 @@
-from src.main.board import Board
-from src.main.bfsSolver import BfsSolver
+from board import Board
+from bfsSolver import BfsSolver
 import resource
 
 

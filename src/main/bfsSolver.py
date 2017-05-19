@@ -1,7 +1,7 @@
 from collections import deque
 
-from src.main.node import Node
-from src.main.result import Result
+from node import Node
+from result import Result
 
 
 class BfsSolver:

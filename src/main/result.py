@@ -11,13 +11,20 @@ class Result:
         return self.__dict__ == other.__dict__
 
     def __str__(self):
-        return f"""path_to_goal: {self.path_to_goal}
-cost_of_path: {self.cost_of_path}
-nodes_expanded: {self.nodes_expanded}
-search_depth: {self.search_depth}
-max_search_depth: {self.max_search_depth}
-running_time: {self.running_time}
-max_ram_usage: {self.max_ram_usage}"""
+        return 'path_to_goal: {0}\n' \
+               'cost_of_path: {1}\n' \
+               'nodes_expanded: {2}\n' \
+               'search_depth: {3}\n' \
+               'max_search_depth: {4}\n' \
+               'running_time: {5}\n' \
+               'max_ram_usage: {6}' \
+            .format(str(self.path_to_goal),
+                    str(self.cost_of_path),
+                    str(self.nodes_expanded),
+                    str(self.search_depth),
+                    str(self.max_search_depth),
+                    str(self.running_time),
+                    str(self.max_ram_usage))
 
     @property
     def cost_of_path(self): return len(self.path_to_goal)
