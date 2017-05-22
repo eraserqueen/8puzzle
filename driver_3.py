@@ -1,5 +1,6 @@
 from board import Board
 from bfsSolver import BfsSolver
+from dfsSolver import DfsSolver
 import resource
 
 
@@ -9,6 +10,8 @@ class Driver:
         starting_board = Board(tiles)
         if strategy == 'bfs':
             self.solver = BfsSolver(starting_board)
+        if strategy == 'dfs':
+            self.solver = DfsSolver(starting_board)
 
     def run(self):
         self.solver.run()

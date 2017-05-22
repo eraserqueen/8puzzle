@@ -21,7 +21,7 @@ class TestNode(unittest.TestCase):
 
     def test_str(self):
         self.assertEqual("root", str(Node(self.starting_board)))
-        self.assertEqual("1U", str(Node(self.starting_board,  ["up"])))
+        self.assertEqual("1U", str(Node(self.starting_board, ["up"])))
         self.assertEqual("2UL", str(Node(self.starting_board, ["up", "left"])))
         self.assertEqual("3ULL", str(Node(self.starting_board, ["up", "left", "left"])))
 
@@ -29,7 +29,7 @@ class TestNode(unittest.TestCase):
         self.assertEqual(Node(Board()), Node(Board()))
         self.assertNotEqual(None, Node(Board()))
         self.assertNotEqual(Board(), Node(Board()))
-        self.assertNotEqual(Node(Board()), Node(Board([1,2,3,4,5,6,7,8,0])))
+        self.assertNotEqual(Node(Board()), Node(Board([1, 2, 3, 4, 5, 6, 7, 8, 0])))
 
     def test_depth(self):
         self.assertEqual(0, Node(self.starting_board).depth)
