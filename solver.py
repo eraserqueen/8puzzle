@@ -21,11 +21,11 @@ class Solver:
         current_node = self.fringe.popleft()
 
         if self.result.max_search_depth < current_node.depth:
-            self.result.max_search_depth = current_node.depth
+            self.result.max_search_depth = current_node.depth+1
 
         if current_node.board.is_solved:
             self.fringe.clear()
-            self.result.path_to_goal = current_node.path
+            self.result.path_to_goal = [n[0].upper() + n[1:] for n in current_node.path]
             self.result.nodes_expanded = len(self.visited)
             self.result.search_depth = current_node.depth
             return
