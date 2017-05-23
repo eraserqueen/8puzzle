@@ -29,11 +29,11 @@ class TestBfsSolver(unittest.TestCase):
         starting_node = Node(self.board_with_middle_empty_slot)
         self.assertEqual(deque([starting_node]), solver.fringe)
         solver.check_next_node()
-        self.assertEqual([starting_node], solver.visited)
-        self.assertEqual(Node(Board([1, 0, 3, 4, 2, 5, 6, 7, 8]), ["up"]), solver.fringe[0])
-        self.assertEqual(Node(Board([1, 2, 3, 4, 7, 5, 6, 0, 8]), ["down"]), solver.fringe[1])
-        self.assertEqual(Node(Board([1, 2, 3, 0, 4, 5, 6, 7, 8]), ["left"]), solver.fringe[2])
-        self.assertEqual(Node(Board([1, 2, 3, 4, 5, 0, 6, 7, 8]), ["right"]), solver.fringe[3])
+        self.assertEqual(['root'], [str(n) for n in solver.visited])
+        self.assertEqual(['1U', '1D', '1L', '1R'], [str(n) for n in solver.fringe])
+        solver.check_next_node()
+        self.assertEqual(['root', '1U'], [str(n) for n in solver.visited])
+        self.assertEqual(['1D', '1L', '1R', '2UD', '2UL', '2UR'], [str(n) for n in solver.fringe])
 
     def test_run_when_board_is_solved(self):
         solver = BfsSolver(self.solved_board)
@@ -69,6 +69,12 @@ class TestBfsSolver(unittest.TestCase):
         solver.check_next_node()
         solver.check_next_node()
         self.assertEqual(1, solver.result.max_search_depth)
+
+    def test_add_to_fringe(self):
+        solver = BfsSolver(self.solved_board)
+        self.assertEqual(deque([Node(self.solved_board)]), solver.fringe)
+        solver.add_to_fringe([Node(self.board_with_middle_empty_slot)])
+        self.assertEqual(deque([Node(self.solved_board), Node(self.board_with_middle_empty_slot)]), solver.fringe)
 
     if __name__ == '__main__':
         unittest.main()
