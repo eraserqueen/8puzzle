@@ -8,7 +8,7 @@ class TestDriver(unittest.TestCase):
         driver = Driver("bfs", "3,2,4,1,5,7,6,0,8")
         self.assertEqual("BFS", driver.solver.strategy)
 
-    def test_run(self):
+    def test_run_with_bfs_solved(self):
         driver = Driver("bfs", "0,1,2,3,4,5,6,7,8")
         result = driver.run()
         self.assertEqual([], result.path_to_goal)
@@ -35,7 +35,6 @@ class TestDriver(unittest.TestCase):
         self.assertEqual(['Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Right',
                           'Down', 'Left', 'Up', 'Left', 'Up', 'Right', 'Right',
                           'Down', 'Down', 'Left', 'Left', 'Up', 'Up'], result.path_to_goal)
-        print(result)
         self.assertEqual(20, result.cost_of_path)
         self.assertEqual(54094, result.nodes_expanded)
         self.assertEqual(20, result.search_depth)
@@ -58,7 +57,6 @@ class TestDriver(unittest.TestCase):
     def test_run_with_dfs_case_1(self):
         driver = Driver("dfs", "1,2,5,3,4,0,6,7,8")
         result = driver.run()
-        print(result)
         self.assertEqual(['Up', 'Left', 'Left'], result.path_to_goal)
         self.assertEqual(3, result.cost_of_path)
         self.assertEqual(181437, result.nodes_expanded)
@@ -69,7 +67,6 @@ class TestDriver(unittest.TestCase):
     def test_run_with_dfs_case_2(self):
         driver = Driver("dfs", "6,1,8,4,0,2,7,3,5")
         result = driver.run()
-        print(result)
         self.assertEqual(['Up', 'Left', 'Down'], result.path_to_goal[0:3])
         self.assertEqual(['Up', 'Left', 'Up', 'Left'], result.path_to_goal[len(result.path_to_goal) - 4:])
         self.assertEqual(46142, result.cost_of_path)
@@ -81,7 +78,6 @@ class TestDriver(unittest.TestCase):
     def test_run_with_dfs_case_3(self):
         driver = Driver("dfs", " 8, 6, 4, 2, 1, 3, 5, 7, 0")
         result = driver.run()
-        print(result)
         self.assertEqual(['Up', 'Up', 'Left'], result.path_to_goal[0:3])
         self.assertEqual(['Up', 'Up', 'Left'], result.path_to_goal[len(result.path_to_goal) - 3:])
         self.assertEqual(9612, result.cost_of_path)

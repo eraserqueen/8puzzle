@@ -1,10 +1,14 @@
+import copy
+
+
 class Node:
-    def __init__(self, board, path=None):
+    def __init__(self, board, origin=None, depth=None):
         self.board = board
-        if path is None:
-            self.path = []
+        self.origin = origin
+        if depth is None:
+            self.depth = 0
         else:
-            self.path = path
+            self.depth = depth
 
     def __eq__(self, other):
         if not isinstance(other, Node):
@@ -12,9 +16,33 @@ class Node:
         return self.board == other.board
 
     def __str__(self):
-        if self.depth == 0:
-            return "root"
-        return str(self.depth) + "".join([s[0].upper() for s in self.path])
+        return "({0}) {1} {2}".format(self.depth, str(self.board), self.origin)
 
     @property
-    def depth(self): return len(self.path)
+    def reverse_move(self):
+        if self.origin is None:
+            return None
+        reverse_moves = {"up": "down", "down": "up", "left": "right", "right": 'left'}
+        return reverse_moves[self.origin]
+
+    @property
+    def valid_moves(self):
+        moves = ["up", "down", "left", "right"]
+        if self.board.empty_slot < 3 or self.origin == "down":
+            moves.remove("up")
+        if self.board.empty_slot > 5 or self.origin == "up":
+            moves.remove("down")
+        if self.board.empty_slot % 3 == 0 or self.origin == "right":
+            moves.remove("left")
+        if self.board.empty_slot % 3 == 2 or self.origin == "left":
+            moves.remove("right")
+        return moves
+
+    @property
+    def is_final(self): return len(self.valid_moves) == 0
+
+    @property
+    def next_states(self):
+        if self.is_final:
+            return None
+        return [(move, getattr(copy.copy(self.board), move)()) for move in self.valid_moves]

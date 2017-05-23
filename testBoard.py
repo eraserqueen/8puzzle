@@ -14,7 +14,7 @@ class TestBoardClass(unittest.TestCase):
         self.assertEqual(board.tiles, [3, 4, 1, 5, 2, 6, 8, 0, 7])
 
     def test_str(self):
-        self.assertEqual("[0, 1, 2, 3, 4, 5, 6, 7, 8]", str(Board()))
+        self.assertEqual("012345678", str(Board()))
 
     def test_equal(self):
         self.assertEqual(Board(), Board())
@@ -32,37 +32,6 @@ class TestBoardClass(unittest.TestCase):
         board = Board([1, 0, 2, 3, 4, 5, 6, 7, 8])
         self.assertEqual(1, board.empty_slot)
 
-    def test_valid_moves(self):
-        self.assertEqual(["down", "right"],
-                          Board([0, 1, 2,
-                                 3, 4, 5,
-                                 6, 7, 8]).valid_moves)
-        self.assertEqual(["up", "down", "left", "right"],
-                          Board([1, 4, 2,
-                                 3, 0, 5,
-                                 6, 7, 8]).valid_moves)
-        self.assertEqual(["up", "left"],
-                          Board([2, 1, 8,
-                                 3, 4, 5,
-                                 6, 7, 0]).valid_moves)
-
-    def test_next_states_when_empty_slot_is_in_the_center(self):
-        states = Board([1, 2, 3, 4, 0, 5, 6, 7, 8]).next_states
-        expected_states = [
-            ("up", Board([1, 0, 3, 4, 2, 5, 6, 7, 8])),
-            ("down", Board([1, 2, 3, 4, 7, 5, 6, 0, 8])),
-            ("left", Board([1, 2, 3, 0, 4, 5, 6, 7, 8])),
-            ("right", Board([1, 2, 3, 4, 5, 0, 6, 7, 8])),
-        ]
-        self.assertEqual(expected_states, states)
-
-    def test_next_states_when_empty_slot_is_in_a_corner(self):
-        states = Board().next_states
-        expected_states = [
-            ("down", Board([3, 1, 2, 0, 4, 5, 6, 7, 8])),
-            ("right", Board([1, 0, 2, 3, 4, 5, 6, 7, 8])),
-        ]
-        self.assertEqual(expected_states, states)
 
     # TODO add more test cases
     def test_down(self):

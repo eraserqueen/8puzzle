@@ -11,7 +11,7 @@ class Board:
             self.tiles = tiles
 
     def __str__(self):
-        return str(self.tiles)
+        return "".join(str(t) for t in self.tiles)
 
     def __eq__(self, other):
         if not isinstance(other, Board):
@@ -25,23 +25,6 @@ class Board:
     @property
     def empty_slot(self):
         return self.tiles.index(0)
-
-    @property
-    def valid_moves(self):
-        moves = ["up", "down", "left", "right"]
-        if self.empty_slot < 3:
-            moves.remove("up")
-        if self.empty_slot > 5:
-            moves.remove("down")
-        if self.empty_slot % 3 == 0:
-            moves.remove("left")
-        if self.empty_slot % 3 == 2:
-            moves.remove("right")
-        return moves
-
-    @property
-    def next_states(self):
-        return [(move, getattr(copy.copy(self), move)()) for move in self.valid_moves]
 
     def swap(self, swapped_slot):
         if not (0 <= swapped_slot < 9):

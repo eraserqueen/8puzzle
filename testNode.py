@@ -8,22 +8,21 @@ class TestNode(unittest.TestCase):
     starting_board = Board()
 
     def test_init(self):
-        node = Node(self.starting_board, ["blah"])
+        node = Node(self.starting_board, "up", 4)
         self.assertEqual(self.starting_board, node.board)
-        self.assertEqual(1, node.depth)
-        self.assertEqual(["blah"], node.path)
+        self.assertEqual("up", node.origin)
+        self.assertEqual(4, node.depth)
 
     def test_init_with_defaults(self):
         node = Node(self.starting_board)
         self.assertEqual(self.starting_board, node.board)
         self.assertEqual(0, node.depth)
-        self.assertEqual([], node.path)
+        self.assertEqual(None, node.origin)
+        self.assertEqual(0, node.depth)
 
     def test_str(self):
-        self.assertEqual("root", str(Node(self.starting_board)))
-        self.assertEqual("1U", str(Node(self.starting_board, ["up"])))
-        self.assertEqual("2UL", str(Node(self.starting_board, ["up", "left"])))
-        self.assertEqual("3ULL", str(Node(self.starting_board, ["up", "left", "left"])))
+        self.assertEqual("(0) 012345678 None", str(Node(self.starting_board)))
+        self.assertEqual("(3) 012345678 up", str(Node(self.starting_board, "up", 3)))
 
     def test_equal(self):
         self.assertEqual(Node(Board()), Node(Board()))
@@ -31,11 +30,37 @@ class TestNode(unittest.TestCase):
         self.assertNotEqual(Board(), Node(Board()))
         self.assertNotEqual(Node(Board()), Node(Board([1, 2, 3, 4, 5, 6, 7, 8, 0])))
 
-    def test_depth(self):
-        self.assertEqual(0, Node(self.starting_board).depth)
-        self.assertEqual(1, Node(self.starting_board, ["up"]).depth)
-        self.assertEqual(2, Node(self.starting_board, ["up", "left"]).depth)
-        self.assertEqual(3, Node(self.starting_board, ["up", "left", "left"]).depth)
+    def test_valid_moves(self):
+        self.assertEqual(["down", "right"],
+                         Node(Board([0, 1, 2,
+                                     3, 4, 5,
+                                     6, 7, 8])).valid_moves)
+        self.assertEqual(["up", "down", "left", "right"],
+                         Node(Board([1, 4, 2,
+                                     3, 0, 5,
+                                     6, 7, 8])).valid_moves)
+        self.assertEqual(["up", "left"],
+                         Node(Board([2, 1, 8,
+                                     3, 4, 5,
+                                     6, 7, 0])).valid_moves)
+
+    def test_next_states_when_empty_slot_is_in_the_center(self):
+        states = Node(Board([1, 2, 3, 4, 0, 5, 6, 7, 8])).next_states
+        expected_states = [
+            ("up", Board([1, 0, 3, 4, 2, 5, 6, 7, 8])),
+            ("down", Board([1, 2, 3, 4, 7, 5, 6, 0, 8])),
+            ("left", Board([1, 2, 3, 0, 4, 5, 6, 7, 8])),
+            ("right", Board([1, 2, 3, 4, 5, 0, 6, 7, 8])),
+        ]
+        self.assertEqual(expected_states, states)
+
+    def test_next_states_when_empty_slot_is_in_a_corner(self):
+        states = Node(Board()).next_states
+        expected_states = [
+            ("down", Board([3, 1, 2, 0, 4, 5, 6, 7, 8])),
+            ("right", Board([1, 0, 2, 3, 4, 5, 6, 7, 8])),
+        ]
+        self.assertEqual(expected_states, states)
 
 
 if __name__ == '__main__':
