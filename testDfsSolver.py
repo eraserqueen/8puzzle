@@ -12,9 +12,12 @@ class TestDfsSolver(unittest.TestCase):
 
     def test_add_to_fringe(self):
         solver = DfsSolver(self.solved_board)
-        self.assertEqual(deque([Node(self.solved_board)]), solver.fringe)
-        solver.add_to_fringe([Node(self.board_with_middle_empty_slot)])
-        self.assertEqual(deque([Node(self.board_with_middle_empty_slot), Node(self.solved_board)]), solver.fringe)
+        self.assertEqual([Node(self.solved_board)], solver.fringe)
+        solver.fringe.add_all([Node(self.board_with_middle_empty_slot)])
+        self.assertEqual([
+            Node(self.board_with_middle_empty_slot),
+            Node(self.solved_board)],
+            solver.fringe)
 
     if __name__ == '__main__':
         unittest.main()

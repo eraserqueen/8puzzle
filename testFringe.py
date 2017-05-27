@@ -1,0 +1,43 @@
+import unittest
+
+from bfsSolver import Fringe
+from board import Board
+from node import Node
+
+
+class TestFringe(unittest.TestCase):
+
+    def test_init(self):
+        empty_fringe = Fringe()
+        fringe_with_node = Fringe([Node(Board())])
+        self.assertEqual(len(empty_fringe.queue), 0)
+        self.assertEqual(len(fringe_with_node.queue), 1)
+
+    def test_clear(self):
+        fringe_with_node = Fringe([Node(Board())])
+        fringe_with_node.clear()
+        self.assertEqual(0, len(fringe_with_node.queue))
+
+    def test_has_nodes(self):
+        empty_fringe = Fringe()
+        fringe_with_node = Fringe([Node(Board())])
+        self.assertFalse(empty_fringe.has_nodes())
+        self.assertTrue(fringe_with_node.has_nodes())
+
+    def test_get_next_node(self):
+        fringe_with_node = Fringe([Node(Board())])
+        self.assertEqual(Node(Board()), fringe_with_node.get_next_node())
+
+    def test_contains(self):
+        empty_fringe = Fringe()
+        fringe_with_node = Fringe([Node(Board())])
+        self.assertTrue(Node(Board()) in fringe_with_node)
+        self.assertFalse(Node(Board()) in empty_fringe)
+
+    def test_equality(self):
+        self.assertEqual(Fringe(), Fringe())
+        self.assertEqual(Fringe([Node(Board())]), Fringe([Node(Board())]))
+        self.assertEqual(Fringe([Node(Board())]), [Node(Board())])
+
+    if __name__ == '__main__':
+        unittest.main()
