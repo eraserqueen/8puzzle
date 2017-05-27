@@ -42,10 +42,12 @@ class Node:
         return moves
 
     @property
-    def is_final(self): return len(self.valid_moves) == 0
+    def is_final(self):
+        return len(self.valid_moves) == 0
 
     @property
     def next_states(self):
         if self.is_final:
             return None
-        return [(move, getattr(copy.copy(self.board), move)()) for move in self.valid_moves]
+        return [Node(getattr(copy.copy(self.board), move)(), move, self.depth+1)
+                for move in self.valid_moves]

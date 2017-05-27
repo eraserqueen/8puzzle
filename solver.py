@@ -31,8 +31,7 @@ class Solver:
             return
 
         next_nodes = []
-        for state in current_node.next_states:
-            next_node = Node(state[1], state[0], current_node.depth + 1)
+        for next_node in current_node.next_states:
             if self.should_add_to_fringe(next_node):
                 next_nodes.append(next_node)
                 if self.result.max_search_depth < next_node.depth:

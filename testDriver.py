@@ -19,6 +19,7 @@ class TestDriver(unittest.TestCase):
         self.assertTrue(result.running_time > 0)
         self.assertTrue(result.max_ram_usage > 0)
 
+    @unittest.skip
     def test_run_with_bfs_case_1(self):
         driver = Driver("bfs", "1,2,5,3,4,0,6,7,8")
         result = driver.run()

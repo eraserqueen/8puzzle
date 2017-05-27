@@ -54,18 +54,18 @@ class TestNode(unittest.TestCase):
     def test_next_states_when_empty_slot_is_in_the_center(self):
         states = Node(Board([1, 2, 3, 4, 0, 5, 6, 7, 8])).next_states
         expected_states = [
-            ("up", Board([1, 0, 3, 4, 2, 5, 6, 7, 8])),
-            ("down", Board([1, 2, 3, 4, 7, 5, 6, 0, 8])),
-            ("left", Board([1, 2, 3, 0, 4, 5, 6, 7, 8])),
-            ("right", Board([1, 2, 3, 4, 5, 0, 6, 7, 8])),
+            Node(Board([1, 0, 3, 4, 2, 5, 6, 7, 8]), "up", 1),
+            Node(Board([1, 2, 3, 4, 7, 5, 6, 0, 8]), "down", 1),
+            Node(Board([1, 2, 3, 0, 4, 5, 6, 7, 8]), "left", 1),
+            Node(Board([1, 2, 3, 4, 5, 0, 6, 7, 8]), "right", 1),
         ]
         self.assertEqual(expected_states, states)
 
     def test_next_states_when_empty_slot_is_in_a_corner(self):
         states = Node(Board()).next_states
         expected_states = [
-            ("down", Board([3, 1, 2, 0, 4, 5, 6, 7, 8])),
-            ("right", Board([1, 0, 2, 3, 4, 5, 6, 7, 8])),
+            Node(Board([3, 1, 2, 0, 4, 5, 6, 7, 8]), "down", 1),
+            Node(Board([1, 0, 2, 3, 4, 5, 6, 7, 8]), "right", 1)
         ]
         self.assertEqual(expected_states, states)
 
