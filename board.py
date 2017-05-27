@@ -13,6 +13,9 @@ class Board:
     def __str__(self):
         return "".join(str(t) for t in self.tiles)
 
+    def __int__(self):
+        return int(str(self))
+
     def __eq__(self, other):
         if not isinstance(other, Board):
             return False

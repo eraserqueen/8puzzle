@@ -16,6 +16,9 @@ class TestBoardClass(unittest.TestCase):
     def test_str(self):
         self.assertEqual("012345678", str(Board()))
 
+    def test_int(self):
+        self.assertEqual(12345678, int(Board()))
+
     def test_equal(self):
         self.assertEqual(Board(), Board())
         self.assertNotEqual(Board(), Board([1,2,3,4,5,6,7,8,0]))
@@ -31,7 +34,6 @@ class TestBoardClass(unittest.TestCase):
     def test_empty_slot(self):
         board = Board([1, 0, 2, 3, 4, 5, 6, 7, 8])
         self.assertEqual(1, board.empty_slot)
-
 
     # TODO add more test cases
     def test_down(self):

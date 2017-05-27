@@ -18,6 +18,9 @@ class Node:
     def __str__(self):
         return "({0}) {1} {2}".format(self.depth, str(self.board), self.origin)
 
+    def __hash__(self):
+        return int(self.board)
+
     @property
     def reverse_move(self):
         if self.origin is None:

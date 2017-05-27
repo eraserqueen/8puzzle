@@ -24,8 +24,15 @@ class TestNode(unittest.TestCase):
         self.assertEqual("(0) 012345678 None", str(Node(self.starting_board)))
         self.assertEqual("(3) 012345678 up", str(Node(self.starting_board, "up", 3)))
 
+    def test_hash(self):
+        self.assertEqual(12345678, hash(Node(self.starting_board)))
+        self.assertEqual(12345678, hash(Node(self.starting_board, "up", 3)))
+
     def test_equal(self):
         self.assertEqual(Node(Board()), Node(Board()))
+        self.assertEqual(Node(self.starting_board), Node(Board()))
+        self.assertEqual(Node(self.starting_board, "up", 3), Node(Board()))
+        self.assertEqual(Node(self.starting_board, "down", 1), Node(self.starting_board, "up", 3))
         self.assertNotEqual(None, Node(Board()))
         self.assertNotEqual(Board(), Node(Board()))
         self.assertNotEqual(Node(Board()), Node(Board([1, 2, 3, 4, 5, 6, 7, 8, 0])))
