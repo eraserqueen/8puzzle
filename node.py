@@ -1,12 +1,14 @@
 import copy
 
+reverse_moves = {"up": "down", "down": "up", "left": "right", "right": 'left'}
+
 
 class Node:
     def __init__(self, board, origin=None, depth=None):
         self.board = board
         self.origin = origin
         if depth is None:
-            self.depth = 0
+            self.depth = 1
         else:
             self.depth = depth
 
@@ -25,7 +27,6 @@ class Node:
     def reverse_move(self):
         if self.origin is None:
             return None
-        reverse_moves = {"up": "down", "down": "up", "left": "right", "right": 'left'}
         return reverse_moves[self.origin]
 
     @property
@@ -51,3 +52,9 @@ class Node:
             return None
         return [Node(getattr(copy.copy(self.board), move)(), move, self.depth+1)
                 for move in self.valid_moves]
+
+    @property
+    def prev_state(self):
+        if self.origin is None or self.depth == 0:
+            return None
+        return Node(getattr(copy.copy(self.board), self.reverse_move)(), None, self.depth-1)

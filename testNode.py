@@ -16,12 +16,11 @@ class TestNode(unittest.TestCase):
     def test_init_with_defaults(self):
         node = Node(self.starting_board)
         self.assertEqual(self.starting_board, node.board)
-        self.assertEqual(0, node.depth)
+        self.assertEqual(1, node.depth)
         self.assertEqual(None, node.origin)
-        self.assertEqual(0, node.depth)
 
     def test_str(self):
-        self.assertEqual("(0) 012345678 None", str(Node(self.starting_board)))
+        self.assertEqual("(1) 012345678 None", str(Node(self.starting_board)))
         self.assertEqual("(3) 012345678 up", str(Node(self.starting_board, "up", 3)))
 
     def test_hash(self):
@@ -69,6 +68,10 @@ class TestNode(unittest.TestCase):
         ]
         self.assertEqual(expected_states, states)
 
+    def test_prev_state(self):
+        current = Node(Board(), "up", 3)
+        previous = Node(Board().down(), None, 2)
+        self.assertEqual(previous, current.prev_state)
 
 if __name__ == '__main__':
     unittest.main()
