@@ -16,11 +16,11 @@ class TestNode(unittest.TestCase):
     def test_init_with_defaults(self):
         node = Node(self.starting_board)
         self.assertEqual(self.starting_board, node.board)
-        self.assertEqual(1, node.depth)
+        self.assertEqual(0, node.depth)
         self.assertEqual(None, node.origin)
 
     def test_str(self):
-        self.assertEqual("(1) 012345678 None", str(Node(self.starting_board)))
+        self.assertEqual("(0) 012345678 None", str(Node(self.starting_board)))
         self.assertEqual("(3) 012345678 -3", str(Node(self.starting_board, Moves.UP, 3)))
 
     def test_hash(self):

@@ -2,10 +2,9 @@ from node import Node
 
 
 def find_max_depth(node_set):
-    working_set = set(node_set)
-    if len(working_set) == 0:
-        return 1
-    return max([node.depth for node in working_set])
+    if len(node_set) == 0:
+        return 0
+    return max([node.depth for node in node_set])
 
 
 def find_node(node, node_set):
@@ -60,9 +59,10 @@ class Result:
     def compute(self, visited_set):
         from node import Node
         goal_node = find_node(Node([0, 1, 2, 3, 4, 5, 6, 7, 8]), visited_set)
-        self.search_depth = goal_node.depth - 1
+        self.search_depth = goal_node.depth
         self.path_to_goal = find_path(goal_node, visited_set)
         self.cost_of_path = len(self.path_to_goal)
         self.nodes_expanded = len(visited_set) - 1
+        # TODO: max_search_depth is off by one in bfs but not dfs, WTF??
         self.max_search_depth = find_max_depth(visited_set)
         return self

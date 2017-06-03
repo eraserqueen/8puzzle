@@ -18,7 +18,7 @@ class Node:
         self.board = board
         self.origin = origin
         if depth is None:
-            self.depth = 1
+            self.depth = 0
         else:
             self.depth = depth
 

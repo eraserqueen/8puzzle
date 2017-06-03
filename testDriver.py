@@ -15,7 +15,7 @@ class TestDriver(unittest.TestCase):
         self.assertEqual(0, result.cost_of_path)
         self.assertEqual(0, result.nodes_expanded)
         self.assertEqual(0, result.search_depth)
-        self.assertEqual(1, result.max_search_depth)
+        self.assertEqual(0, result.max_search_depth)
         self.assertTrue(result.running_time > 0)
         self.assertTrue(result.max_ram_usage > 0)
 
@@ -28,7 +28,6 @@ class TestDriver(unittest.TestCase):
         self.assertEqual(3, result.search_depth)
         self.assertEqual(4, result.max_search_depth)
 
-    @unittest.skip
     def test_run_with_bfs_case_2(self):
         driver = Driver("bfs", "6,1,8,4,0,2,7,3,5")
         result = driver.run()
@@ -40,7 +39,6 @@ class TestDriver(unittest.TestCase):
         self.assertEqual(20, result.search_depth)
         self.assertEqual(21, result.max_search_depth)
 
-    @unittest.skip
     def test_run_with_bfs_case_3(self):
         driver = Driver("bfs", "8,6,4,2,1,3,5,7,0")
         result = driver.run()
@@ -53,7 +51,17 @@ class TestDriver(unittest.TestCase):
         self.assertEqual(26, result.search_depth)
         self.assertEqual(27, result.max_search_depth)
 
-    @unittest.skip
+    def test_run_with_dfs_solved(self):
+        driver = Driver("dfs", "0,1,2,3,4,5,6,7,8")
+        result = driver.run()
+        self.assertEqual([], result.path_to_goal)
+        self.assertEqual(0, result.cost_of_path)
+        self.assertEqual(0, result.nodes_expanded)
+        self.assertEqual(0, result.search_depth)
+        self.assertEqual(0, result.max_search_depth)
+        self.assertTrue(result.running_time > 0)
+        self.assertTrue(result.max_ram_usage > 0)
+
     def test_run_with_dfs_case_1(self):
         driver = Driver("dfs", "1,2,5,3,4,0,6,7,8")
         result = driver.run()
@@ -76,7 +84,7 @@ class TestDriver(unittest.TestCase):
 
     @unittest.skip
     def test_run_with_dfs_case_3(self):
-        driver = Driver("dfs", " 8, 6, 4, 2, 1, 3, 5, 7, 0")
+        driver = Driver("dfs", "8,6,4,2,1,3,5,7,0")
         result = driver.run()
         self.assertEqual(['Up', 'Up', 'Left'], result.path_to_goal[0:3])
         self.assertEqual(['Up', 'Up', 'Left'], result.path_to_goal[len(result.path_to_goal) - 3:])
