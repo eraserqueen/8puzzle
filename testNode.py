@@ -35,6 +35,26 @@ class TestNode(unittest.TestCase):
         self.assertNotEqual(None, Node(self.starting_board))
         self.assertNotEqual(Node(self.starting_board), Node([1, 2, 3, 4, 5, 6, 7, 8, 0]))
 
+    def test_valid_moves(self):
+        self.assertEqual([Moves.DOWN, Moves.RIGHT],
+                         Node([0, 1, 2,
+                               3, 4, 5,
+                               6, 7, 8]).valid_moves)
+        self.assertEqual([Moves.UP, Moves.DOWN, Moves.LEFT, Moves.RIGHT],
+                         Node([1, 4, 2,
+                               3, 0, 5,
+                               6, 7, 8]).valid_moves)
+
+        self.assertEqual([Moves.UP, Moves.DOWN, Moves.RIGHT],
+                         Node([1, 4, 2,
+                               0, 3, 5,
+                               6, 7, 8]).valid_moves)
+
+        self.assertEqual([Moves.UP, Moves.LEFT],
+                         Node([2, 1, 8,
+                               3, 4, 5,
+                               6, 7, 0]).valid_moves)
+
     def test_next_states_when_empty_slot_is_in_the_center(self):
         starting_node = Node([1, 2, 3, 4, 0, 5, 6, 7, 8])
         states = starting_node.next_states

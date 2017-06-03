@@ -34,16 +34,25 @@ class Node:
         return int("".join([str(i) for i in self.board]))
 
     @property
+    def valid_moves(self):
+        moves = [Moves.UP, Moves.DOWN, Moves.LEFT, Moves.RIGHT]
+        if self.origin is not None:
+            moves.remove(self.origin * -1)
+        if self.board.index(0) < 3:
+            moves.remove(Moves.UP)
+        if self.board.index(0) > 5:
+            moves.remove(Moves.DOWN)
+        if self.board.index(0) % 3 == 0:
+            moves.remove(Moves.LEFT)
+        if self.board.index(0) % 3 == 2:
+            moves.remove(Moves.RIGHT)
+        return moves
+
+    @property
     def next_states(self):
-        states = []
-        for direction in [Moves.UP, Moves.DOWN, Moves.LEFT, Moves.RIGHT]:
-            if self.origin is not None and direction == (-1 * self.origin):
-                continue
-            next_board = swap(self.board, direction)
-            if next_board is None:
-                continue
-            states.append(Node(next_board, direction, self.depth + 1))
-        return states
+        return [Node(swap(self.board, direction), direction, self.depth + 1)
+                for direction
+                in self.valid_moves]
 
     @property
     def prev_board(self):

@@ -23,10 +23,10 @@ class TestDriver(unittest.TestCase):
         driver = Driver("bfs", "1,2,5,3,4,0,6,7,8")
         result = driver.run()
         self.assertEqual(['Up', 'Left', 'Left'], result.path_to_goal)
-        # self.assertEqual(3, result.cost_of_path)
-        # self.assertEqual(10, result.nodes_expanded)
-        # self.assertEqual(3, result.search_depth)
-        # self.assertEqual(4, result.max_search_depth)
+        self.assertEqual(3, result.cost_of_path)
+        self.assertEqual(10, result.nodes_expanded)
+        self.assertEqual(3, result.search_depth)
+        self.assertEqual(4, result.max_search_depth)
 
     @unittest.skip
     def test_run_with_bfs_case_2(self):
