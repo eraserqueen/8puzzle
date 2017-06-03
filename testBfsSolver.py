@@ -1,13 +1,13 @@
 import unittest
 
+from Moves import *
 from bfsSolver import BfsSolver
-from board import Board
-from node import Node
+from node import Node, swap
 
 
 class TestBfsSolver(unittest.TestCase):
-    solved_board = Board()
-    board_with_middle_empty_slot = Board([1, 2, 3, 4, 0, 5, 6, 7, 8])
+    solved_board = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    board_with_middle_empty_slot = [1, 2, 3, 4, 0, 5, 6, 7, 8]
 
     def test_init(self):
         solver = BfsSolver(self.solved_board)
@@ -29,17 +29,19 @@ class TestBfsSolver(unittest.TestCase):
 
     def test_check_next_node_clears_fringe_when_board_is_solved(self):
         solver = BfsSolver(self.solved_board)
-        solver.fringe.add_all([Node(self.solved_board), Node(Board().right()), Node(Board().down())])
+        solver.fringe.add_all([Node(self.solved_board),
+                               Node(swap(self.solved_board, Moves.RIGHT)),
+                               Node(swap(self.solved_board, Moves.DOWN))])
         solver.check_next_node()
         self.assertFalse(solver.fringe.has_nodes())
 
     def test_check_next_node_adds_next_states_to_fringe(self):
         solver = BfsSolver(self.board_with_middle_empty_slot)
         solver.check_next_node()
-        self.assertEqual([Node(Board([1, 0, 3, 4, 2, 5, 6, 7, 8]), "up", 2),
-                          Node(Board([1, 2, 3, 4, 7, 5, 6, 0, 8]), "down", 2),
-                          Node(Board([1, 2, 3, 0, 4, 5, 6, 7, 8]), "left", 2),
-                          Node(Board([1, 2, 3, 4, 5, 0, 6, 7, 8]), "right", 2)],
+        self.assertEqual([Node([1, 0, 3, 4, 2, 5, 6, 7, 8], Moves.UP, 2),
+                          Node([1, 2, 3, 4, 7, 5, 6, 0, 8], Moves.DOWN, 2),
+                          Node([1, 2, 3, 0, 4, 5, 6, 7, 8], Moves.LEFT, 2),
+                          Node([1, 2, 3, 4, 5, 0, 6, 7, 8], Moves.RIGHT, 2)],
                          solver.fringe)
 
     def test_should_add_to_fringe_when_node_is_not_in_fringe_or_visited(self):
@@ -61,7 +63,7 @@ class TestBfsSolver(unittest.TestCase):
 
     def test_fringe_add_board(self):
         solver = BfsSolver(self.solved_board)
-        solver.fringe.add(self.board_with_middle_empty_slot)
+        solver.fringe.add(Node(self.board_with_middle_empty_slot))
         self.assertEqual([Node(self.solved_board), Node(self.board_with_middle_empty_slot)], solver.fringe)
 
     def test_fringe_add_node(self):

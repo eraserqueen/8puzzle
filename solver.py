@@ -14,11 +14,8 @@ class Solver:
         node = self.fringe.get_next_node()
         self.add_to_visited(node)
 
-        if node.board.is_solved:
+        if node.board == [0, 1, 2, 3, 4, 5, 6, 7, 8]:
             self.fringe.clear()
-            return
-
-        if node.is_final:
             return
 
         next_nodes = []

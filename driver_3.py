@@ -1,4 +1,3 @@
-from board import Board
 from bfsSolver import BfsSolver
 from dfsSolver import DfsSolver
 import resource
@@ -7,7 +6,7 @@ import resource
 class Driver:
     def __init__(self, strategy, starting_state):
         tiles = [int(i) for i in starting_state.replace(',', '')]
-        starting_board = Board(tiles)
+        starting_board = tiles
         if strategy == 'bfs':
             self.solver = BfsSolver(starting_board)
         if strategy == 'dfs':

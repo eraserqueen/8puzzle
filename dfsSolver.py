@@ -1,15 +1,11 @@
 from Fringe import Fringe
-from board import Board
 from node import Node
 from solver import Solver
 
 
 class DfsFringe(Fringe):
     def add(self, item):
-        if isinstance(item, Board):
-            self.queue.appendleft(Node(item))
-        elif isinstance(item, Node):
-            self.queue.appendleft(item)
+        self.queue.appendleft(item)
         return self
 
     def add_all(self, nodes):
@@ -22,5 +18,5 @@ class DfsSolver(Solver):
     strategy = 'DFS'
 
     def __init__(self, starting_board):
-        self.fringe = DfsFringe().add(starting_board)
+        self.fringe = DfsFringe().add(Node(starting_board))
         super().__init__()

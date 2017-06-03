@@ -1,7 +1,11 @@
+from node import Node
+
+
 def find_max_depth(node_set):
-    if len(node_set) == 0:
+    working_set = set(node_set)
+    if len(working_set) == 0:
         return 1
-    return max([node.depth for node in node_set])
+    return max([node.depth for node in working_set])
 
 
 def find_node(node, node_set):
@@ -13,13 +17,15 @@ def find_node(node, node_set):
 
 
 def find_path(node, visited_set):
+    working_set = set(visited_set)
+    moves = {-3: "Up", 3: "Down", -1: "Left", 1: "Right"}
     path = []
     while node is not None and node.origin is not None:
-        visited_set.remove(node)
+        working_set.remove(node)
         path.append(node.origin)
-        node = find_node(node.prev_state, visited_set)
+        node = find_node(Node(node.prev_board), working_set)
     path.reverse()
-    return [m[0].upper() + m[1:] for m in path]
+    return [moves[m] for m in path]
 
 
 class Result:
@@ -53,10 +59,9 @@ class Result:
 
     def compute(self, visited_set):
         from node import Node
-        from board import Board
-        goal_node = find_node(Node(Board()), visited_set)
+        goal_node = find_node(Node([0, 1, 2, 3, 4, 5, 6, 7, 8]), visited_set)
         self.search_depth = goal_node.depth - 1
-        self.path_to_goal = find_path(goal_node, set(visited_set))
+        self.path_to_goal = find_path(goal_node, visited_set)
         self.cost_of_path = len(self.path_to_goal)
         self.nodes_expanded = len(visited_set) - 1
         self.max_search_depth = find_max_depth(visited_set)

@@ -1,6 +1,16 @@
-import copy
+from Moves import *
 
-reverse_moves = {"up": "down", "down": "up", "left": "right", "right": 'left'}
+
+def swap(board, direction):
+    empty_slot = board.index(0)
+    swapped_slot = empty_slot + direction
+    if not (0 <= swapped_slot < 9):
+        return None
+    else:
+        new_board = board[:]
+        new_board[empty_slot] = new_board[swapped_slot]
+        new_board[swapped_slot] = 0
+        return new_board
 
 
 class Node:
@@ -18,43 +28,25 @@ class Node:
         return self.board == other.board
 
     def __str__(self):
-        return "({0}) {1} {2}".format(self.depth, str(self.board), self.origin)
+        return "({0}) {1} {2}".format(self.depth, "".join([str(i) for i in self.board]), self.origin)
 
     def __hash__(self):
-        return int(self.board)
-
-    @property
-    def reverse_move(self):
-        if self.origin is None:
-            return None
-        return reverse_moves[self.origin]
-
-    @property
-    def valid_moves(self):
-        moves = ["up", "down", "left", "right"]
-        if self.board.empty_slot < 3 or self.origin == "down":
-            moves.remove("up")
-        if self.board.empty_slot > 5 or self.origin == "up":
-            moves.remove("down")
-        if self.board.empty_slot % 3 == 0 or self.origin == "right":
-            moves.remove("left")
-        if self.board.empty_slot % 3 == 2 or self.origin == "left":
-            moves.remove("right")
-        return moves
-
-    @property
-    def is_final(self):
-        return len(self.valid_moves) == 0
+        return int("".join([str(i) for i in self.board]))
 
     @property
     def next_states(self):
-        if self.is_final:
-            return None
-        return [Node(getattr(copy.copy(self.board), move)(), move, self.depth+1)
-                for move in self.valid_moves]
+        states = []
+        for direction in [Moves.UP, Moves.DOWN, Moves.LEFT, Moves.RIGHT]:
+            if self.origin is not None and direction == (-1 * self.origin):
+                continue
+            next_board = swap(self.board, direction)
+            if next_board is None:
+                continue
+            states.append(Node(next_board, direction, self.depth + 1))
+        return states
 
     @property
-    def prev_state(self):
+    def prev_board(self):
         if self.origin is None or self.depth == 0:
             return None
-        return Node(getattr(copy.copy(self.board), self.reverse_move)(), None, self.depth-1)
+        return swap(self.board, self.origin * -1)
