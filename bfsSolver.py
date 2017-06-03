@@ -4,12 +4,14 @@ from solver import Solver
 
 
 class BfsFringe(Fringe):
-    def add(self, item):
-        self.queue.append(item)
+    def add(self, node):
+        self.queue.append(node)
+        super().add(node)
         return self
 
     def add_all(self, nodes):
         self.queue.extend(nodes)
+        super().add_all(nodes)
         return self
 
 

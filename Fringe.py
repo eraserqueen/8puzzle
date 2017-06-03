@@ -5,8 +5,17 @@ class Fringe:
     def __init__(self, items=None):
         if items is None:
             self.queue = deque()
+            self.hashes = set()
         else:
             self.queue = deque(items)
+            self.hashes = set([hash(node) for node in items])
+
+    def add(self, item):
+        self.hashes.add(hash(item))
+
+    def add_all(self, items):
+        for item in items:
+            self.hashes.add(hash(item))
 
     def clear(self):
         self.queue.clear()
@@ -18,11 +27,9 @@ class Fringe:
         return self.queue.popleft()
 
     def __contains__(self, item):
-        try:
-            self.queue.index(item)
-            return True
-        except ValueError:
+        if item is None:
             return False
+        return hash(item) in self.hashes
 
     def __eq__(self, other):
         if isinstance(other, Fringe):

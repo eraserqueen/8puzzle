@@ -4,13 +4,15 @@ from solver import Solver
 
 
 class DfsFringe(Fringe):
-    def add(self, item):
-        self.queue.appendleft(item)
+    def add(self, node):
+        self.queue.appendleft(node)
+        super().add(node)
         return self
 
     def add_all(self, nodes):
         nodes.reverse()
         self.queue.extendleft(nodes)
+        super().add_all(nodes)
         return self
 
 
