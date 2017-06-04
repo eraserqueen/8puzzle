@@ -31,20 +31,26 @@ class Node:
         return "({0}) {1} {2}".format(self.depth, "".join([str(i) for i in self.board]), self.origin)
 
     def __hash__(self):
-        return int("".join([str(i) for i in self.board]))
+        result = 0
+        multiplier = 1
+        for i in self.board:
+            result += i*multiplier
+            multiplier = multiplier*10
+        return result
 
     @property
     def valid_moves(self):
         moves = [Moves.UP, Moves.DOWN, Moves.LEFT, Moves.RIGHT]
         if self.origin is not None:
             moves.remove(self.origin * -1)
-        if self.board.index(0) < 3:
+        empty_slot = self.board.index(0)
+        if empty_slot < 3:
             moves.remove(Moves.UP)
-        if self.board.index(0) > 5:
+        if empty_slot > 5:
             moves.remove(Moves.DOWN)
-        if self.board.index(0) % 3 == 0:
+        if empty_slot % 3 == 0:
             moves.remove(Moves.LEFT)
-        if self.board.index(0) % 3 == 2:
+        if empty_slot % 3 == 2:
             moves.remove(Moves.RIGHT)
         return moves
 

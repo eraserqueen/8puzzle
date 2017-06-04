@@ -70,13 +70,13 @@ class TestBfsSolver(unittest.TestCase):
         solver = BfsSolver(self.solved_board)
         solver.fringe.add(Node(self.board_with_middle_empty_slot))
         self.assertEqual([Node(self.solved_board), Node(self.board_with_middle_empty_slot)], solver.fringe)
-        self.assertEqual({12345678, 123405678}, solver.fringe.hashes)
+        self.assertEqual({876543210, 876504321}, solver.fringe.hashes)
 
     def test_fringe_add_all(self):
         solver = BfsSolver(self.solved_board)
         solver.fringe.add_all([Node(self.board_with_middle_empty_slot)])
         self.assertEqual([Node(self.solved_board), Node(self.board_with_middle_empty_slot)], solver.fringe)
-        self.assertEqual({12345678, 123405678}, solver.fringe.hashes)
+        self.assertEqual({876543210, 876504321}, solver.fringe.hashes)
 
     if __name__ == '__main__':
         unittest.main()

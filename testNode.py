@@ -24,8 +24,8 @@ class TestNode(unittest.TestCase):
         self.assertEqual("(3) 012345678 -3", str(Node(self.starting_board, Moves.UP, 3)))
 
     def test_hash(self):
-        self.assertEqual(12345678, hash(Node(self.starting_board)))
-        self.assertEqual(12345678, hash(Node(self.starting_board, Moves.UP, 3)))
+        self.assertEqual(876543210, hash(Node(self.starting_board)))
+        self.assertEqual(876543210, hash(Node(self.starting_board, Moves.UP, 3)))
 
     def test_equal(self):
         self.assertEqual(Node(self.starting_board), Node([0, 1, 2, 3, 4, 5, 6, 7, 8]))
