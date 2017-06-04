@@ -6,25 +6,34 @@ class Fringe:
         if items is None:
             self.queue = deque()
             self.hashes = set()
+            self.max_depth = 0
         else:
             self.queue = deque(items)
             self.hashes = set([hash(node) for node in items])
+            self.max_depth = max(node.depth for node in items)
 
     def add(self, item):
-        self.hashes.add(hash(item))
+        self.__add(item)
 
     def add_all(self, items):
         for item in items:
-            self.hashes.add(hash(item))
+            self.__add(item)
 
-    def clear(self):
-        self.queue.clear()
+    def __add(self, item):
+        self.hashes.add(hash(item))
+        if item.depth > self.max_depth:
+            self.max_depth = item.depth
 
     def has_nodes(self):
-        return len(self.queue) > 0
+        return len(self.hashes) > 0
 
     def get_next_node(self):
-        return self.queue.popleft()
+        node = self.queue.popleft()
+        h = hash(node)
+        if h not in self.hashes:
+            print(h, self.hashes)
+        self.hashes.remove(h)
+        return node
 
     def __contains__(self, item):
         if item is None:

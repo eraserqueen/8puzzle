@@ -14,6 +14,8 @@ class Driver:
 
     def run(self):
         result = self.solver.run()
+        if result is None:
+            return 'No solution found'
         usage = resource.getrusage(0)
         result.max_ram_usage = usage[2] / 8 / 1024 / 1024
         result.running_time = usage[0]

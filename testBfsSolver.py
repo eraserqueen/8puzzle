@@ -27,13 +27,14 @@ class TestBfsSolver(unittest.TestCase):
         self.assertEqual(0, result.nodes_expanded)
         self.assertEqual(0, result.search_depth)
 
-    def test_check_next_node_clears_fringe_when_board_is_solved(self):
+    def test_check_next_node_sets_solution_found(self):
         solver = BfsSolver(self.solved_board)
         solver.fringe.add_all([Node(self.solved_board),
                                Node(swap(self.solved_board, Moves.RIGHT)),
                                Node(swap(self.solved_board, Moves.DOWN))])
+        solver.solution_found = False
         solver.check_next_node()
-        self.assertFalse(solver.fringe.has_nodes())
+        self.assertTrue(solver.solution_found)
 
     def test_check_next_node_adds_next_states_to_fringe(self):
         solver = BfsSolver(self.board_with_middle_empty_slot)

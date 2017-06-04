@@ -56,13 +56,12 @@ class Result:
                     str(self.running_time),
                     str(self.max_ram_usage))
 
-    def compute(self, visited_set):
+    def compute(self, visited_set, fringe):
         from node import Node
         goal_node = find_node(Node([0, 1, 2, 3, 4, 5, 6, 7, 8]), visited_set)
         self.search_depth = goal_node.depth
         self.path_to_goal = find_path(goal_node, visited_set)
         self.cost_of_path = len(self.path_to_goal)
         self.nodes_expanded = len(visited_set) - 1
-        # TODO: max_search_depth is off by one in bfs but not dfs, WTF??
-        self.max_search_depth = find_max_depth(visited_set)
+        self.max_search_depth = max([find_max_depth(visited_set), fringe.max_depth])
         return self

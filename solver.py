@@ -4,18 +4,21 @@ from result import Result
 class Solver:
     def __init__(self):
         self.visited = set()
+        self.solution_found = False
 
     def run(self):
-        while self.fringe.has_nodes():
+        while not self.solution_found and self.fringe.has_nodes():
             self.check_next_node()
-        return Result().compute(self.visited)
+        if not self.solution_found:
+            return None
+        return Result().compute(self.visited, self.fringe)
 
     def check_next_node(self):
         node = self.fringe.get_next_node()
         self.add_to_visited(node)
 
         if node.board == [0, 1, 2, 3, 4, 5, 6, 7, 8]:
-            self.fringe.clear()
+            self.solution_found = True
             return
 
         next_nodes = []
