@@ -30,8 +30,6 @@ class Fringe:
     def get_next_node(self):
         node = self.queue.popleft()
         h = hash(node)
-        if h not in self.hashes:
-            print(h, self.hashes)
         self.hashes.remove(h)
         return node
 

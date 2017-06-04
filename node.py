@@ -23,8 +23,6 @@ class Node:
             self.depth = depth
 
     def __eq__(self, other):
-        if not isinstance(other, Node):
-            return False
         return self.board == other.board
 
     def __str__(self):

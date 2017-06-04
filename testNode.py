@@ -32,7 +32,6 @@ class TestNode(unittest.TestCase):
         self.assertEqual(Node(self.starting_board), Node(self.starting_board))
         self.assertEqual(Node(self.starting_board, Moves.UP, 3), Node(self.starting_board))
         self.assertEqual(Node(self.starting_board, Moves.DOWN, 1), Node(self.starting_board, Moves.UP, 3))
-        self.assertNotEqual(None, Node(self.starting_board))
         self.assertNotEqual(Node(self.starting_board), Node([1, 2, 3, 4, 5, 6, 7, 8, 0]))
 
     def test_valid_moves(self):
