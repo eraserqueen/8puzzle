@@ -44,3 +44,6 @@ class Fringe:
         if isinstance(other, list):
             return list(self.queue) == other
         return False
+
+    def __str__(self):
+        return ",".join([str(n) for n in self.queue])

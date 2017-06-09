@@ -27,9 +27,15 @@ class AstFringe(Fringe):
         i = 0
         while i < len(self.queue) and node.cost > self.queue[i].cost:
             i += 1
-        self.queue.insert(i, node)
+        self.insert(i, node)
         super().add(node)
         return self
+
+    def insert(self, i, node):
+        # use deque.insert >= python 3.5
+        self.queue.rotate(-1*i)
+        self.queue.appendleft(node)
+        self.queue.rotate(i)
 
     def add_all(self, nodes):
         for n in nodes:

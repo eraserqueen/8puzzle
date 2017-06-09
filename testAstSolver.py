@@ -43,7 +43,26 @@ class TestDfsSolver(unittest.TestCase):
         fringe.add(AstNode(self.board_d2a))
         self.assertEqual([AstNode(self.board_d2a), AstNode(self.board_d4a), AstNode(self.board_d8)], fringe)
         fringe.add(AstNode(self.board_d2b))
-        self.assertEqual([AstNode(self.board_d2b), AstNode(self.board_d2a), AstNode(self.board_d4a), AstNode(self.board_d8)], fringe)
+        self.assertEqual(
+            [AstNode(self.board_d2b), AstNode(self.board_d2a), AstNode(self.board_d4a), AstNode(self.board_d8)], fringe)
+
+    def test_fringe_insert(self):
+        fringe = AstFringe([
+            AstNode(self.board_d0),
+            AstNode(self.board_d0),
+            AstNode(self.board_d0),
+            AstNode(self.board_d0),
+            AstNode(self.board_d0),
+            AstNode(self.board_d0)])
+        fringe.insert(4, AstNode(self.board_d2a))
+        self.assertEqual([
+            AstNode(self.board_d0),
+            AstNode(self.board_d0),
+            AstNode(self.board_d0),
+            AstNode(self.board_d0),
+            AstNode(self.board_d2a),
+            AstNode(self.board_d0),
+            AstNode(self.board_d0)], fringe)
 
     if __name__ == '__main__':
         unittest.main()
