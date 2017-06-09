@@ -93,5 +93,38 @@ class TestDriver(unittest.TestCase):
         self.assertEqual(9612, result.search_depth)
         self.assertEqual(9612, result.max_search_depth)
 
+    def test_run_with_ast_solved(self):
+        driver = Driver("ast", "0,1,2,3,4,5,6,7,8")
+        result = driver.run()
+        self.assertEqual([], result.path_to_goal)
+        self.assertEqual(0, result.cost_of_path)
+        self.assertEqual(0, result.nodes_expanded)
+        self.assertEqual(0, result.search_depth)
+        self.assertEqual(0, result.max_search_depth)
+        self.assertTrue(result.running_time > 0)
+        self.assertTrue(result.max_ram_usage > 0)
+
+    def test_run_with_ast_case1(self):
+        driver = Driver("ast", "6,1,8,4,0,2,7,3,5")
+        result = driver.run()
+        self.assertEqual(['Down', 'Right', 'Up', 'Up', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Left', 'Up', 'Right', 'Right', 'Down', 'Down', 'Left', 'Left', 'Up', 'Up'], result.path_to_goal)
+        self.assertEqual(20, result.cost_of_path)
+        self.assertEqual(696, result.nodes_expanded)
+        self.assertEqual(20, result.search_depth)
+        self.assertEqual(20, result.max_search_depth)
+        self.assertTrue(result.running_time > 0)
+        self.assertTrue(result.max_ram_usage > 0)
+
+    def test_run_with_ast_case2(self):
+        driver = Driver("ast", "8,6,4,2,1,3,5,7,0")
+        result = driver.run()
+        self.assertEqual(['Left', 'Up', 'Up', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Right', 'Right', 'Up', 'Left', 'Left', 'Down', 'Right', 'Right', 'Up', 'Left', 'Down', 'Down', 'Right', 'Up', 'Left', 'Up', 'Left'], result.path_to_goal)
+        self.assertEqual(26, result.cost_of_path)
+        self.assertEqual(1585, result.nodes_expanded)
+        self.assertEqual(26, result.search_depth)
+        self.assertEqual(26, result.max_search_depth)
+        self.assertTrue(result.running_time > 0)
+        self.assertTrue(result.max_ram_usage > 0)
+
 if __name__ == '__main__':
     unittest.main()

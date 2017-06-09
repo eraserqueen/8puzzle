@@ -1,3 +1,4 @@
+from astSolver import AstSolver
 from bfsSolver import BfsSolver
 from dfsSolver import DfsSolver
 import resource
@@ -11,6 +12,8 @@ class Driver:
             self.solver = BfsSolver(starting_board)
         if strategy == 'dfs':
             self.solver = DfsSolver(starting_board)
+        if strategy == 'ast':
+            self.solver = AstSolver(starting_board)
 
     def run(self):
         result = self.solver.run()

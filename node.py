@@ -54,7 +54,7 @@ class Node:
 
     @property
     def next_states(self):
-        return [Node(swap(self.board, direction), direction, self.depth + 1)
+        return [self.__class__(swap(self.board, direction), direction, self.depth + 1)
                 for direction
                 in self.valid_moves]
 
